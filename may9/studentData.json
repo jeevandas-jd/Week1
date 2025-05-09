@@ -1,0 +1,20 @@
+{
+    "lastStudentID": 1003,
+    "students": {
+        "1001": {
+            "name": "jeevandas",
+            "age": 20,
+            "department": "dcs"
+        },
+        "1002": {
+            "name": "malavika",
+            "age": 20,
+            "department": "doe"
+        },
+        "1003": {
+            "name": "malu",
+            "age": 45,
+            "department": "dfg"
+        }
+    }
+}
