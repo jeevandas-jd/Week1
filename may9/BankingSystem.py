@@ -27,7 +27,7 @@ class CLIBankingSystem(object):
             "name":input("Enter your name: "),
             "balance":0
         }
-        #rewriting the json file a
+        #rewriting the json file after creating the account
         with open(self.dataFile, 'w') as json_file:
             json.dump(self.data, json_file, indent=4)
         print(f"Account created successfully. Your account number is {accountNumber}.")
