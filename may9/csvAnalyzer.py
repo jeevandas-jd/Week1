@@ -18,16 +18,21 @@ class CSVanalyzer(object):
                 pass
             print(f"file {fileName}.csv created successfully")
     def loadCSV(self):
-        files=os.listdir("may9/sampleCSV")
+        files = os.listdir("may9/sampleCSV")
         for i in range(len(files)):
-            print(f"{i+1}.{files[i]}")
-        x=int(input("choose file index .>>"))
-        self.currentfile=files[x-1]
+            print(f"{i+1}. {files[i]}")
+        x = int(input("choose file index .>>"))
+        self.currentfile = files[x - 1]
+        file_path = f"may9/sampleCSV/{self.currentfile}"
 
-        self.df=pd.read_csv(f"may9/sampleCSV/{files[x-1]}")
+        try:
+            self.df = pd.read_csv(file_path)
+        except pd.errors.EmptyDataError:
+            print("Warning: The file is empty. Creating an empty DataFrame.")
+            self.df = pd.DataFrame()
     def AddColums(self):
 
-        if self.df==None:
+        if self.df is None:
             print("file is not loaded")
             return
         else:
@@ -38,19 +43,29 @@ class CSVanalyzer(object):
                 print(f"existing columns = {existingColums}")
                 newCol=input("enter new column >>> ")
                 self.df[newCol]=None
+                self.df.to_csv(f"may9/sampleCSV/{self.currentfile}",index=False)
 
 
             else:
                 return
     def insertValues(self):
-        if self.df==None:
+        if self.df is None:
             print("file is not loaded")
             return
-        columns = self.df.columns
         print(f"working on the file {self.currentfile}")
-        for el in columns:
-            self.df[el]=input(f"enter value for {el} >>> ")
-
+        new_row = {}
+        for col in self.df.columns:
+            new_row[col] = input(f"Enter value for {col} >>> ")
+        self.df.loc[len(self.df)] = new_row
+        self.df.to_csv(f"may9/sampleCSV/{self.currentfile}", index=False)
+    def showData(self):
+        if self.df is None:
+            print("file is not loaded")
+            return
+        else:
+            print(self.df)
+            #self.df.to_csv(f"may9/sampleCSV/{self.currentfile}", index=False)
+        #print("Row inserted and file saved.")
 
 
             
@@ -60,7 +75,7 @@ def main():
     print("welcom to CSV analyzer ")
     csv=CSVanalyzer()
     while True:
-        x=input("1.create new CSV\n2.load CSV\n3.add columns\n4.inser values\n5.exit\n>>")
+        x=input("1.create new CSV\n2.load CSV\n3.add columns\n4.inser values\n5.show csv\n6.exit\n>>")
         if x=="1":
         
             csv.createCSV()
@@ -71,6 +86,8 @@ def main():
         elif x=="4":
             csv.insertValues()
         elif x=="5":
+            csv.showData()
+        elif x=="6":
 
             print("Leaving the CLI")
             break
