@@ -1,0 +1,13 @@
+{
+    "lastAccountNumber": 1002,
+    "accounts": {
+        "1001": {
+            "name": "jeevandas",
+            "balance": 300.0
+        },
+        "1002": {
+            "name": "malavika",
+            "balance": 0
+        }
+    }
+}
